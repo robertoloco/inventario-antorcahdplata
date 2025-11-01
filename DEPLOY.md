@@ -6,7 +6,7 @@
 
 Edita `package.json` línea 6:
 ```json
-"homepage": "https://TU-USUARIO-GITHUB.github.io/inventario-antorcahdplata",
+"homepage": "https://TU-USUARIO-GITHUB.github.io/inventario-antorchadplata",
 ```
 
 Reemplaza `TU-USUARIO-GITHUB` con tu nombre de usuario real de GitHub.
