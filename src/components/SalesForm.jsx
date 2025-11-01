@@ -7,7 +7,8 @@ function SalesForm() {
   const [formData, setFormData] = useState({
     productoId: '',
     cantidad: '1',
-    precioVenta: ''
+    precioVenta: '',
+    metodoPago: 'efectivo'
   });
   const [busquedaProducto, setBusquedaProducto] = useState('');
 
@@ -35,9 +36,10 @@ function SalesForm() {
       await registrarVenta(
         parseInt(formData.productoId),
         parseInt(formData.cantidad),
-        parseFloat(formData.precioVenta)
+        parseFloat(formData.precioVenta),
+        formData.metodoPago
       );
-      setFormData({ productoId: '', cantidad: '1', precioVenta: '' });
+      setFormData({ productoId: '', cantidad: '1', precioVenta: '', metodoPago: 'efectivo' });
       loadData();
       alert('Venta registrada correctamente');
     } catch (error) {
@@ -50,7 +52,8 @@ function SalesForm() {
     setFormData({
       productoId,
       cantidad: '1',
-      precioVenta: producto ? producto.precio : ''
+      precioVenta: producto ? producto.precio : '',
+      metodoPago: 'efectivo'
     });
     setBusquedaProducto(''); // Limpiar búsqueda al seleccionar
   };
@@ -124,6 +127,18 @@ function SalesForm() {
           />
         </div>
 
+        <div className="form-field">
+          <label>Método de pago *</label>
+          <select
+            value={formData.metodoPago}
+            onChange={(e) => setFormData({ ...formData, metodoPago: e.target.value })}
+            required
+          >
+            <option value="efectivo">💵 Efectivo</option>
+            <option value="tarjeta">💳 Tarjeta</option>
+          </select>
+        </div>
+
         <button type="submit" className="btn-primary btn-form-submit">
           💸 Registrar Venta
         </button>
@@ -138,6 +153,7 @@ function SalesForm() {
               <th>Producto</th>
               <th>Cantidad</th>
               <th>Precio</th>
+              <th>Pago</th>
               <th>Total</th>
             </tr>
           </thead>
@@ -148,6 +164,11 @@ function SalesForm() {
                 <td>{venta.producto?.nombre || 'N/A'}</td>
                 <td>{venta.cantidad}</td>
                 <td>{venta.precioVenta.toFixed(2)} €</td>
+                <td>
+                  <span className={`badge-pago ${venta.metodoPago || 'efectivo'}`}>
+                    {venta.metodoPago === 'tarjeta' ? '💳 Tarjeta' : '💵 Efectivo'}
+                  </span>
+                </td>
                 <td>{(venta.cantidad * venta.precioVenta).toFixed(2)} €</td>
               </tr>
             ))}

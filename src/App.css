@@ -24,8 +24,9 @@
 }
 
 .logo {
-  height: 250px;
+  height: 320px;
   width: auto;
+  max-width: 90vw;
 }
 
 .app-header h1 {
@@ -69,6 +70,37 @@
 }
 
 /* Dashboard */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+}
+
+.btn-email {
+  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-email:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(237, 137, 54, 0.4);
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -312,14 +344,53 @@ tr:hover {
   color: #742a2a;
 }
 
+/* Badge Método de Pago */
+.badge-pago {
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge-pago.efectivo {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.badge-pago.tarjeta {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
 /* Balance */
+.balance-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 .balance-card {
   background: white;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: center;
-  margin-bottom: 2rem;
+  transition: transform 0.2s;
+}
+
+.balance-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.balance-card.efectivo {
+  border: 3px solid #48bb78;
+}
+
+.balance-card.tarjeta {
+  border: 3px solid #4299e1;
 }
 
 .balance-amount {
@@ -569,7 +640,7 @@ tr:hover {
   }
   
   .logo {
-    height: 60px;
+    height: 240px;
   }
   
   .app-header h1 {

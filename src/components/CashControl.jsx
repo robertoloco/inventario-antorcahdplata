@@ -4,6 +4,8 @@ import { cajaDB } from '../db';
 function CashControl() {
   const [movimientos, setMovimientos] = useState([]);
   const [balance, setBalance] = useState(0);
+  const [balanceEfectivo, setBalanceEfectivo] = useState(0);
+  const [balanceTarjeta, setBalanceTarjeta] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     tipo: 'ingreso',
@@ -21,6 +23,22 @@ function CashControl() {
     
     const bal = await cajaDB.getBalance();
     setBalance(bal);
+    
+    // Calcular balances por método de pago
+    const efectivo = movs
+      .filter(m => (m.metodoPago === 'efectivo' || !m.metodoPago))
+      .reduce((total, mov) => {
+        return mov.tipo === 'ingreso' ? total + mov.monto : total - mov.monto;
+      }, 0);
+    
+    const tarjeta = movs
+      .filter(m => m.metodoPago === 'tarjeta')
+      .reduce((total, mov) => {
+        return mov.tipo === 'ingreso' ? total + mov.monto : total - mov.monto;
+      }, 0);
+    
+    setBalanceEfectivo(efectivo);
+    setBalanceTarjeta(tarjeta);
   };
 
   const handleSubmit = async (e) => {
@@ -48,11 +66,25 @@ function CashControl() {
         </button>
       </div>
 
-      <div className="balance-card">
-        <h3>Balance Total</h3>
-        <p className={`balance-amount ${balance >= 0 ? 'positive' : 'negative'}`}>
-          {balance.toFixed(2)} €
-        </p>
+      <div className="balance-cards-grid">
+        <div className="balance-card">
+          <h3>Balance Total</h3>
+          <p className={`balance-amount ${balance >= 0 ? 'positive' : 'negative'}`}>
+            {balance.toFixed(2)} €
+          </p>
+        </div>
+        <div className="balance-card efectivo">
+          <h3>💵 Efectivo</h3>
+          <p className={`balance-amount ${balanceEfectivo >= 0 ? 'positive' : 'negative'}`}>
+            {balanceEfectivo.toFixed(2)} €
+          </p>
+        </div>
+        <div className="balance-card tarjeta">
+          <h3>💳 Tarjeta</h3>
+          <p className={`balance-amount ${balanceTarjeta >= 0 ? 'positive' : 'negative'}`}>
+            {balanceTarjeta.toFixed(2)} €
+          </p>
+        </div>
       </div>
 
       {showForm && (

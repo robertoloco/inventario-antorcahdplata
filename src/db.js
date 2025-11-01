@@ -4,8 +4,8 @@ export const db = new Dexie('InventarioAntorcaDB');
 
 db.version(1).stores({
   productos: '++id, nombre, categoria, precio, stock, createdAt',
-  ventas: '++id, productoId, cantidad, precioVenta, fecha, tipo',
-  caja: '++id, fecha, tipo, monto, descripcion, ventaId'
+  ventas: '++id, productoId, cantidad, precioVenta, fecha, tipo, metodoPago',
+  caja: '++id, fecha, tipo, monto, descripcion, ventaId, metodoPago'
 });
 
 // Funciones helper para productos
@@ -107,7 +107,7 @@ export const cajaDB = {
 };
 
 // Función para registrar una venta completa (actualiza stock, caja y ventas)
-export const registrarVenta = async (productoId, cantidad, precioVenta) => {
+export const registrarVenta = async (productoId, cantidad, precioVenta, metodoPago = 'efectivo') => {
   try {
     const producto = await productosDB.getById(productoId);
     
@@ -124,7 +124,8 @@ export const registrarVenta = async (productoId, cantidad, precioVenta) => {
       productoId,
       cantidad,
       precioVenta,
-      tipo: 'venta'
+      tipo: 'venta',
+      metodoPago
     });
     
     // Actualizar stock
@@ -135,7 +136,8 @@ export const registrarVenta = async (productoId, cantidad, precioVenta) => {
       tipo: 'ingreso',
       monto: precioVenta * cantidad,
       descripcion: `Venta: ${producto.nombre} x${cantidad}`,
-      ventaId
+      ventaId,
+      metodoPago
     });
     
     return ventaId;
