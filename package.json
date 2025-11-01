@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://robertoloco.github.io/inventario-antorcahdplata",
+  "homepage": "https://robertoloco.github.io/inventario-antorchadplata",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
