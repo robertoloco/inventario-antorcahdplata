@@ -77,14 +77,16 @@ function ProductList() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const productoData = {
+        ...formData,
+        precio: parseFloat(formData.precio) || 0,
+        stock: parseInt(formData.stock) || 0
+      };
+      
       if (editingId) {
-        await productosDB.update(editingId, formData);
+        await productosDB.update(editingId, productoData);
       } else {
-        await productosDB.add({
-          ...formData,
-          precio: parseFloat(formData.precio),
-          stock: parseInt(formData.stock) || 0
-        });
+        await productosDB.add(productoData);
       }
       resetForm();
       loadProductos();

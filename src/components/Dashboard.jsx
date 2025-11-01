@@ -18,8 +18,8 @@ function Dashboard() {
     try {
       const productos = await productosDB.getAll();
       const totalProductos = productos.length;
-      const totalStock = productos.reduce((sum, p) => sum + (p.stock || 0), 0);
-      const valorInventario = productos.reduce((sum, p) => sum + ((p.precio || 0) * (p.stock || 0)), 0);
+      const totalStock = productos.reduce((sum, p) => sum + (parseInt(p.stock) || 0), 0);
+      const valorInventario = productos.reduce((sum, p) => sum + ((parseFloat(p.precio) || 0) * (parseInt(p.stock) || 0)), 0);
       
       const hoy = new Date();
       const ventasHoy = await ventasDB.getByFecha(hoy);
@@ -63,8 +63,11 @@ function Dashboard() {
       const totalVentas = ventasReales.reduce((sum, v) => sum + (v.cantidad * v.precioVenta), 0);
       
       // Productos con stock bajo (menos de 3)
-      const stockBajo = productos.filter(p => p.stock < 3 && p.stock > 0);
-      const sinStock = productos.filter(p => p.stock === 0);
+      const stockBajo = productos.filter(p => {
+        const stock = parseInt(p.stock) || 0;
+        return stock < 3 && stock > 0;
+      });
+      const sinStock = productos.filter(p => (parseInt(p.stock) || 0) === 0);
       
       // Construir cuerpo del email
       const fecha = hoy.toLocaleDateString('es-ES', { 
@@ -88,8 +91,8 @@ function Dashboard() {
       cuerpo += `%0D%0A`;
       cuerpo += `━━━ INVENTARIO ━━━%0D%0A`;
       cuerpo += `Productos totales: ${productos.length}%0D%0A`;
-      cuerpo += `Stock total: ${productos.reduce((s, p) => s + p.stock, 0)} unidades%0D%0A`;
-      cuerpo += `Valor inventario: ${productos.reduce((s, p) => s + (p.precio * p.stock), 0).toFixed(2)} €%0D%0A`;
+      cuerpo += `Stock total: ${productos.reduce((s, p) => s + (parseInt(p.stock) || 0), 0)} unidades%0D%0A`;
+      cuerpo += `Valor inventario: ${productos.reduce((s, p) => s + ((parseFloat(p.precio) || 0) * (parseInt(p.stock) || 0)), 0).toFixed(2)} €%0D%0A`;
       
       if (sinStock.length > 0) {
         cuerpo += `%0D%0A`;
