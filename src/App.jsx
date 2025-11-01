@@ -26,7 +26,10 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>⚡ Antorca HD Plata - Inventario</h1>
+        <div className="header-content">
+          <img src="/logo_antorcha.png" alt="Antorcha de Plata" className="logo" />
+          <h1>Antorcha de Plata - Inventario</h1>
+        </div>
         <nav className="nav">
           <button 
             className={activeSection === 'dashboard' ? 'active' : ''}

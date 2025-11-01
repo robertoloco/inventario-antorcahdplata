@@ -1,4 +1,4 @@
-# ⚡ Antorca HD Plata - Sistema de Inventario
+# ⚡ Antorcha de Plata - Sistema de Inventario
 
 Aplicación web para gestión de inventario de joyas, control de producción, ventas y caja.
 
@@ -10,7 +10,9 @@ Aplicación web para gestión de inventario de joyas, control de producción, ve
 - ✅ **Control de Caja**: Seguimiento de ingresos y egresos del mercado
 - ✅ **Dashboard**: Resumen visual de estadísticas importantes
 - ✅ **Almacenamiento Local**: Todos los datos se guardan en IndexedDB (navegador)
+- ✅ **Importar/Exportar**: Sistema de backup en JSON
 - ✅ **100% Gratis**: Sin costos de backend ni hosting
+- ✅ **Responsive**: Funciona perfectamente en móvil, tablet y desktop
 
 ## 🛠️ Tecnologías
 
@@ -101,13 +103,19 @@ Para hacer backup de tus datos:
 2. Ve a Application → IndexedDB → InventarioAntorcaDB
 3. Exporta las tablas que necesites
 
-### Futura Mejora: Exportar/Importar
-En próximas versiones se añadirá funcionalidad de exportar a JSON y backup automático.
+### Exportar/Importar
+Ya puedes exportar e importar tus datos en formato JSON desde la sección de Productos.
+
+**Para importar los productos iniciales:**
+1. Ve a la sección "Productos"
+2. Click en "📥 Importar JSON"
+3. Selecciona el archivo `productos-inicial.json` (descárgalo del repositorio)
+4. ¡Listo! Tendrás 45 productos cargados
 
 ## 🎨 Futuras Mejoras
 
 - [ ] Sistema de fotos para productos
-- [ ] Exportar/Importar datos en JSON
+- [x] Exportar/Importar datos en JSON
 - [ ] Búsqueda y filtros avanzados
 - [ ] Reportes y estadísticas
 - [ ] Modo oscuro
@@ -119,4 +127,4 @@ Proyecto personal para gestión de inventario de joyas.
 
 ---
 
-Hecho con ❤️ para Antorca HD Plata
+Hecho con ❤️ para Antorcha de Plata

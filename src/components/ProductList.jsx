@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { productosDB, registrarProduccion } from '../db';
+import DataManager from './DataManager';
 
 function ProductList() {
   const [productos, setProductos] = useState([]);
@@ -91,6 +92,8 @@ function ProductList() {
           {showForm ? 'Cancelar' : '+ Nuevo Producto'}
         </button>
       </div>
+
+      <DataManager onDataImported={loadProductos} />
 
       {showForm && (
         <form onSubmit={handleSubmit} className="product-form">
